@@ -16,7 +16,7 @@ services:
       - "8000:8000"
     networks:
       - childfoundation_network
-      - nginx_network
+      - childfoundation_nginx_network
     depends_on:
       - childfoundation_postgresql
   childfoundation_postgresql:
@@ -41,5 +41,5 @@ volumes:
 networks:
   childfoundation_network:
     external: true
-  nginx_network:
+  childfoundation_nginx_network:
     external: true

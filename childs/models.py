@@ -7,10 +7,16 @@ from django.urls import reverse
 # from ckeditor_uploader.fields import RichTextUploadingField
 from django.utils import timezone
 import os
-    
 from uuid import uuid4
-def path_and_rename(path):
-    def wrapper(instance, filename):
+from django.utils.deconstruct import deconstructible
+
+@deconstructible
+class PathRename(object):
+
+    def __init__(self, sub_path):
+        self.path = sub_path
+
+    def __call__(self, instance, filename):
         ext = filename.split('.')[-1]
         # get filename
         if instance.file_number:
@@ -18,9 +24,21 @@ def path_and_rename(path):
         else:
             # set filename as random string
             filename = '{}.{}'.format(uuid4().hex, ext)
-        # return the whole path to the file
-        return os.path.join(path, filename)
-    return wrapper
+        return os.path.join(self.path, filename)
+
+path_and_rename = PathRename("images")
+# def path_and_rename(path):
+#     def wrapper(instance, filename):
+#         ext = filename.split('.')[-1]
+#         # get filename
+#         if instance.file_number:
+#             filename = '{}.{}'.format(instance.file_number, ext)
+#         else:
+#             # set filename as random string
+#             filename = '{}.{}'.format(uuid4().hex, ext)
+#         # return the whole path to the file
+#         return os.path.join(path, filename)
+#     return wrapper
 # managers
 class PublishedPostsManager(models.Manager):
     def get_queryset(self):
@@ -43,7 +61,7 @@ class Child(models.Model):
     is_rejected = models.BooleanField()
     is_poor = models.BooleanField()
     # image = models.ImageField(upload_to="images",)
-    image = models.ImageField(upload_to=path_and_rename("images"),)
+    image = models.ImageField(upload_to=path_and_rename,)
     age = models.IntegerField()
     birthday = models.DateField()
     province_birthday = models.CharField(max_length=20)
