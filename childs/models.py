@@ -6,8 +6,21 @@ from django.db.models.deletion import CASCADE
 from django.urls import reverse
 # from ckeditor_uploader.fields import RichTextUploadingField
 from django.utils import timezone
-
-
+import os
+    
+from uuid import uuid4
+def path_and_rename(path):
+    def wrapper(instance, filename):
+        ext = filename.split('.')[-1]
+        # get filename
+        if instance.file_number:
+            filename = '{}.{}'.format(instance.file_number, ext)
+        else:
+            # set filename as random string
+            filename = '{}.{}'.format(uuid4().hex, ext)
+        # return the whole path to the file
+        return os.path.join(path, filename)
+    return wrapper
 # managers
 class PublishedPostsManager(models.Manager):
     def get_queryset(self):
@@ -29,7 +42,8 @@ class Child(models.Model):
     is_clever = models.BooleanField()
     is_rejected = models.BooleanField()
     is_poor = models.BooleanField()
-    image = models.ImageField(upload_to="images")
+    # image = models.ImageField(upload_to="images",)
+    image = models.ImageField(upload_to=path_and_rename("images"),)
     age = models.IntegerField()
     birthday = models.DateField()
     province_birthday = models.CharField(max_length=20)

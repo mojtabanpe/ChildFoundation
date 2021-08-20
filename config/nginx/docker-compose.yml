@@ -7,12 +7,13 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "80:80"
+      - "8081:80"
     volumes:
       - childfoundation_static_volume:/childfoundation/static
       - childfoundation_files_volume:/childfoundation/files
     networks:
       - nginx_network
+      - host_web_server
 
 volumes:
   childfoundation_static_volume:
@@ -22,3 +23,5 @@ volumes:
 networks:
   nginx_network:
     external: true
+  host_web_server:
+  external: true
