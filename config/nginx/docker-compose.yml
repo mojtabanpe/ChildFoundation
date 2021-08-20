@@ -12,8 +12,8 @@ services:
       - childfoundation_static_volume:/childfoundation/static
       - childfoundation_files_volume:/childfoundation/files
       - childfoundation_ssl_volume:/childfoundation/ssl
-      - ssl/certificate.crt:/etc/nginx/ssl/certificate.crt
-      - ssl/private.key:/etc/nginx/ssl/private.key
+      - ./ssl/certificate.crt:/etc/nginx/ssl/certificate.crt
+      - ./ssl/private.key:/etc/nginx/ssl/private.key
     networks:
       - childfoundation_nginx_network
       - host_web_server

@@ -16,3 +16,4 @@ files/
 **/__pycache__
 staticfiles/
 .env
+docker-compose copy.conf
