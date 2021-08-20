@@ -24,4 +24,4 @@ networks:
   nginx_network:
     external: true
   host_web_server:
-  external: true
+    external: true
