@@ -16,4 +16,4 @@ RUN pip install -r requirements.txt
 # Collect static files
 RUN python manage.py collectstatic --no-input
 
-CMD ["gunicorn", "--chdir", "childfoundation", "--bind", ":8000", "childfoundation.wsgi:application"]
+CMD ["gunicorn", "--chdir", "childfoundation", "--bind", ":8001", "childfoundation.wsgi:application"]

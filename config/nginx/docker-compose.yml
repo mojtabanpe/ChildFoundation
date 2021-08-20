@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8081:80"
+      - "8082:80"
     volumes:
       - childfoundation_static_volume:/childfoundation/static
       - childfoundation_files_volume:/childfoundation/files

@@ -13,7 +13,7 @@ services:
       - childfoundation_files_volume:/childfoundation/files
     restart: always
     ports:
-      - "8000:8000"
+      - "8001:8001"
     networks:
       - childfoundation_network
       - childfoundation_nginx_network
