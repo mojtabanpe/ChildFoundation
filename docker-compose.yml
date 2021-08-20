@@ -3,6 +3,7 @@ version: '2'
 
 services:
   childfoundation:
+    container_name: childfoundation
     build:
       context: .
       dockerfile: Dockerfile
